@@ -1,0 +1,18 @@
+AllCops:
+  DisplayCopNames: true
+  TargetRubyVersion: 2.6.5
+  Exclude:
+    - ./db/schema.rb
+    - ./app/views/**/*
+
+Rails:
+  Enabled: true
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/LineLength:
+  Enabled: false
+
+FrozenStringLiteralComment:
+  Enabled: false
