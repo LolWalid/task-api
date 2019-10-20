@@ -5,7 +5,8 @@ module API::V1
     def sign_up
       @user = User.new(user_params)
       if @user.save
-        render json: @user, status: :created
+        token = JSONWebToken.encode(user_id: @user.id)
+        render json: { token: token, expire: User::JWT_DURATION.from_now }, status: :created
       else
         render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
       end
