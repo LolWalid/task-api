@@ -15,8 +15,10 @@ RSpec.describe JSONWebToken do
   end
 
   describe '.decode' do
+    let(:encoded_jwt) { JSONWebToken.encode(payload) }
+
     before(:each) do
-      @decoded = JSONWebToken.decode(october_jwt).symbolize_keys
+      @decoded = JSONWebToken.decode(encoded_jwt).symbolize_keys
     end
 
     it { expect(@decoded).to include(payload) }
@@ -33,14 +35,4 @@ RSpec.describe JSONWebToken do
       end
     end
   end
-
-  # def self.encode(payload, expire = User::JWT_DURATION.from_now)
-  #   payload[:exp] = expire.to_i
-  #   JWT.encode(payload, SECRET_KEY)
-  # end
-
-  # def self.decode(token)
-  #   decoded = JWT.decode(token, SECRET_KEY)[0]
-  #   HashWithIndifferentAccess.new(decoded)
-  # end
 end
