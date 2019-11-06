@@ -17,6 +17,9 @@ gem 'puma', '~> 3.11'
 gem 'bcrypt', '~> 3.1.7' # Use Active Model has_secure_password
 gem 'jwt' # Use Json Web Token (JWT) for token based authentication
 
+gem 'carrierwave', '~> 2.0'
+gem 'mini_magick'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
