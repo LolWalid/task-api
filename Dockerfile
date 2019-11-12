@@ -1,6 +1,7 @@
 FROM ruby:2.6.5
 
 RUN apt-get update -qq
+RUN apt-get install nano
 
 RUN mkdir /myapp
 WORKDIR /myapp

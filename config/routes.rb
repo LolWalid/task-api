@@ -9,6 +9,10 @@ Rails.application.routes.draw do
         post :sign_up
         get  :refresh_token
       end
+
+      resources :tasks, except: :show do
+        put :mark_as_done, on: :member
+      end
     end
 
     # v1 is default

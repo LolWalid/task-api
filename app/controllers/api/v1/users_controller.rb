@@ -1,6 +1,17 @@
 module API::V1
   class UsersController < ApplicationController
     before_action :authenticate!, only: :refresh_token
+    # around_action :set_time_zone
+
+    # def set_time_zone(&block)
+    #   Time.use_zone('Paris', &block)
+    # end
+
+    before_action :set_time_zone
+
+    def set_time_zone
+      Time.zone = 'Paris'
+    end
 
     def sign_up
       @user = User.new(user_params)
