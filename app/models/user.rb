@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  JWT_DURATION = 1.hour
+  JWT_DURATION = 1.year
   has_secure_password
 
   has_many :tasks
