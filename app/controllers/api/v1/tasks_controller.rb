@@ -14,7 +14,7 @@ module API::V1
       if task.save
         render json: task.to_jbuilder, status: :created
       else
-        render json: task.errors
+        render json: task.errors, status: :unprocessable_entity
       end
     end
 
@@ -22,7 +22,7 @@ module API::V1
       if @task.update(task_params)
         render json: @task.to_jbuilder
       else
-        render json: @task.errors
+        render json: @task.errors, status: :unprocessable_entity
       end
     end
 
@@ -30,7 +30,7 @@ module API::V1
       if @task.done!
         render json: @task.to_jbuilder
       else
-        render json: @task.errors
+        render json: @task.errors, status: :unprocessable_entity
       end
     end
 

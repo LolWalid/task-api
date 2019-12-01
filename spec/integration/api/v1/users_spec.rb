@@ -45,10 +45,8 @@ describe 'Blogs API' do
       parameter name: :user, in: :body, schema: {
         type: :object,
         properties: {
-          user: {
-            email: { type: :string },
-            password: { type: :string }
-          }
+          email: { type: :string },
+          password: { type: :string }
         },
         required: %w[email password]
       }
