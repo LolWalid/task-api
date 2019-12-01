@@ -92,7 +92,7 @@ describe 'Blogs API' do
     end
   end
 
-  path '/users/infos' do
+  path '/users/info' do
     get 'Current user informations' do
       security [APIKeyHeader: []]
       let(:user) { create(:user) }

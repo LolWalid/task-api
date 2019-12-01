@@ -38,7 +38,7 @@ module API::V1
       render json: { token: token, expire: User::JWT_DURATION.from_now }, status: :ok
     end
 
-    def infos
+    def info
       render json: {
         firstname: current_user.firstname,
         lastname: current_user.lastname,

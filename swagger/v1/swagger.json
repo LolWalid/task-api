@@ -132,7 +132,7 @@
         }
       }
     },
-    "/users/infos": {
+    "/users/info": {
       "get": {
         "summary": "Current user informations",
         "security": [
