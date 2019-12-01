@@ -1,6 +1,6 @@
 module API::V1
   class UsersController < ApplicationController
-    before_action :authenticate!, only: :refresh_token
+    before_action :authenticate!, except: [:sign_up, :login]
     # around_action :set_time_zone
 
     # def set_time_zone(&block)
@@ -36,6 +36,14 @@ module API::V1
     def refresh_token
       token = JSONWebToken.encode(user_id: current_user.id)
       render json: { token: token, expire: User::JWT_DURATION.from_now }, status: :ok
+    end
+
+    def infos
+      render json: {
+        firstname: current_user.firstname,
+        lastname: current_user.lastname,
+        email: current_user.email
+      }
     end
 
     private

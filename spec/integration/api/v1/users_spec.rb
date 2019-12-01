@@ -32,7 +32,7 @@ describe 'Blogs API' do
       end
 
       response '422', 'Unprocessable Entity' do
-        let(:user) { { email: 'foo@dsa.com' } }
+        let(:user) { {user: { email: 'foo@dsa.com' }} }
         run_test!
       end
     end
@@ -45,8 +45,10 @@ describe 'Blogs API' do
       parameter name: :user, in: :body, schema: {
         type: :object,
         properties: {
-          email: { type: :string },
-          password: { type: :string }
+          user: {
+            email: { type: :string },
+            password: { type: :string }
+          }
         },
         required: %w[email password]
       }
@@ -79,6 +81,25 @@ describe 'Blogs API' do
       consumes 'application/json'
 
       response '200', 'New JWT Token' do
+        let(:Authorization) { JSONWebToken.encode(user_id: user.id) }
+        run_test!
+      end
+
+      response '401', 'Unauthorized' do
+        let(:Authorization) { JSONWebToken.encode({ user_id: user.id }, 1.day.ago) }
+        run_test!
+      end
+    end
+  end
+
+  path '/users/infos' do
+    get 'Current user informations' do
+      security [APIKeyHeader: []]
+      let(:user) { create(:user) }
+      tags 'Users'
+      consumes 'application/json'
+
+      response '200', 'User informations' do
         let(:Authorization) { JSONWebToken.encode(user_id: user.id) }
         run_test!
       end

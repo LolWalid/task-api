@@ -8,6 +8,7 @@ Rails.application.routes.draw do
         post :login
         post :sign_up
         get  :refresh_token
+        get :infos
       end
 
       resources :tasks, except: :show do

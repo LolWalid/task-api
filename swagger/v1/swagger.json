@@ -80,11 +80,13 @@
             "schema": {
               "type": "object",
               "properties": {
-                "email": {
-                  "type": "string"
-                },
-                "password": {
-                  "type": "string"
+                "user": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
                 }
               },
               "required": [
@@ -123,6 +125,32 @@
         "responses": {
           "200": {
             "description": "New JWT Token"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/users/infos": {
+      "get": {
+        "summary": "Current user informations",
+        "security": [
+          {
+            "APIKeyHeader": [
+
+            ]
+          }
+        ],
+        "tags": [
+          "Users"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "User informations"
           },
           "401": {
             "description": "Unauthorized"
