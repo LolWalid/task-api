@@ -9,6 +9,7 @@ Rails.application.routes.draw do
         post :sign_up
         get  :refresh_token
         get :info
+        patch :update_avatar
       end
 
       resources :tasks, except: :show do

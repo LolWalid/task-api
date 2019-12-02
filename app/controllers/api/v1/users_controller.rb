@@ -44,6 +44,14 @@ module API::V1
       end
     end
 
+    def update_avatar
+      if current_user.update!(avatar: params[:avatar])
+        render json: current_user_info
+      else
+        render json: { errors: current_user.errors.full_messages }, status: :unprocessable_entity
+      end
+    end
+
     private
 
     def login_params
