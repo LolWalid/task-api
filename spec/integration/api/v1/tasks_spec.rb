@@ -45,8 +45,8 @@ describe 'Tasks API' do
       parameter name: :id, in: :path, type: :string
 
       response '204', 'Task deleted' do
-        let(:task) { create(:task) }
-        let(:id) { task.id }
+        let(:task) { create(:task, user: user) }
+        let(:id) { task.token }
 
         run_test!
       end
@@ -61,8 +61,11 @@ describe 'Tasks API' do
       parameter name: :page, in: :query, type: :integer
       parameter name: :per_page, in: :query, type: :integer
 
+      let(:page) { 1 }
+      let(:per_page) { 1 }
+
       response '200', 'List' do
-        let(:task) { create(:task) }
+        let(:task) { create(:task, user: user) }
 
         run_test!
       end
@@ -85,7 +88,7 @@ describe 'Tasks API' do
       }
 
       response '200', 'Task updated' do
-        let(:id) { create(:task).id }
+        let(:id) { create(:task, user: user).token }
 
         let(:task) do
           {
@@ -100,6 +103,7 @@ describe 'Tasks API' do
 
       response '422', 'Unprocessable Entity' do
         let(:task) { { task: { title: nil } } }
+        let(:id) { create(:task, user: user).token }
         run_test!
       end
     end

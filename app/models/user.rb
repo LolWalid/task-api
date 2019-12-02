@@ -4,6 +4,8 @@ class User < ApplicationRecord
 
   has_many :tasks, dependent: :destroy
 
+  mount_uploader :avatar, ImageUploader
+
   after_create :create_task
 
   validates :email, presence: true, uniqueness: true

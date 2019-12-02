@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   namespace :api, constraints: { format: :json } do
     concern :api_base do
-      resource :users, only: [] do
+      resource :users, only: [:update] do
         post :login
         post :sign_up
         get  :refresh_token

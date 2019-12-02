@@ -200,10 +200,12 @@
                   "type": "string"
                 },
                 "password": {
-                  "type": "string"
+                  "type": "string",
+                  "writeOnly": true
                 },
                 "password_confirmation": {
-                  "type": "string"
+                  "type": "string",
+                  "writeOnly": true
                 }
               },
               "required": [
@@ -305,6 +307,52 @@
         ],
         "consumes": [
           "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "User informations"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/users": {
+      "patch": {
+        "summary": "Update user informations",
+        "security": [
+          {
+            "APIKeyHeader": [
+
+            ]
+          }
+        ],
+        "tags": [
+          "Users"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstname": {
+                  "type": "string"
+                },
+                "lastname": {
+                  "type": "string"
+                },
+                "avatar": {
+                  "type": "file"
+                }
+              }
+            }
+          }
         ],
         "responses": {
           "200": {

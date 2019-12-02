@@ -11,10 +11,7 @@ class Task < ApplicationRecord
     {
       id: token,
       title: title,
-      description: description,
-      image: image_json,
-      due_date: due_date,
-      status: status
+      description: description
     }
   end
 

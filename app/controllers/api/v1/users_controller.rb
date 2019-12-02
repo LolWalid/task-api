@@ -1,12 +1,6 @@
 module API::V1
   class UsersController < ApplicationController
-    before_action :authenticate!, except: [:sign_up, :login]
-    # around_action :set_time_zone
-
-    # def set_time_zone(&block)
-    #   Time.use_zone('Paris', &block)
-    # end
-
+    before_action :authenticate!, except: %i[sign_up login]
     before_action :set_time_zone
 
     def set_time_zone
@@ -39,11 +33,15 @@ module API::V1
     end
 
     def info
-      render json: {
-        firstname: current_user.firstname,
-        lastname: current_user.lastname,
-        email: current_user.email
-      }
+      render json: current_user_info
+    end
+
+    def update
+      if current_user.update!(user_params)
+        render json: current_user_info
+      else
+        render json: { errors: current_user.errors.full_messages }, status: :unprocessable_entity
+      end
     end
 
     private
@@ -54,7 +52,16 @@ module API::V1
 
     def user_params
       params.fetch(:user, {})
-            .permit(:firstname, :lastname, :email, :password, :password_confirmation)
+            .permit(:firstname, :lastname, :email, :password, :password_confirmation, :avatar)
+    end
+
+    def current_user_info
+      {
+        firstname: current_user.firstname,
+        lastname: current_user.lastname,
+        email: current_user.email,
+        avatar: current_user.avatar_url
+      }
     end
   end
 end

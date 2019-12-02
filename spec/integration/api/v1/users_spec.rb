@@ -11,8 +11,8 @@ describe 'Blogs API' do
           firstname: { type: :string },
           lastname: { type: :string },
           email: { type: :string },
-          password: { type: :string },
-          password_confirmation: { type: :string }
+          password: { type: :string, writeOnly: true },
+          password_confirmation: { type: :string, writeOnly: true }
         },
         required: %w[email password password_confirmation]
       }
@@ -96,6 +96,33 @@ describe 'Blogs API' do
       let(:user) { create(:user) }
       tags 'Users'
       consumes 'application/json'
+
+      response '200', 'User informations' do
+        let(:Authorization) { JSONWebToken.encode(user_id: user.id) }
+        run_test!
+      end
+
+      response '401', 'Unauthorized' do
+        let(:Authorization) { JSONWebToken.encode({ user_id: user.id }, 1.day.ago) }
+        run_test!
+      end
+    end
+  end
+
+  path '/users' do
+    patch 'Update user informations' do
+      security [APIKeyHeader: []]
+      let(:user) { create(:user) }
+      tags 'Users'
+      consumes 'application/json'
+      parameter name: :user, in: :body, schema: {
+        type: :object,
+        properties: {
+          firstname: { type: :string },
+          lastname: { type: :string },
+          avatar: { type: :file }
+        }
+      }
 
       response '200', 'User informations' do
         let(:Authorization) { JSONWebToken.encode(user_id: user.id) }
