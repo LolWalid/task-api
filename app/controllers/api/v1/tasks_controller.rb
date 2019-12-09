@@ -1,11 +1,11 @@
 module API::V1
   class TasksController < ApplicationController
     before_action :authenticate!
-    before_action :set_task, only: %w[update destroy show]
+    before_action :set_task, only: %w[update destroy show mark_as_done]
 
     def index
       # TODO: check params!
-      tasks = current_user.tasks.page(params[:page] || 1).per_page(params[:per_page] || 20).order(params[:order])
+      tasks = current_user.tasks.in_progress.page(params[:page] || 1).per_page(per_page).order(params[:order])
       render json: tasks.map(&:to_jbuilder)
     end
 
@@ -40,6 +40,10 @@ module API::V1
     end
 
     private
+
+    def per_page
+      [params[:per_page] || 20, 100].min
+    end
 
     def set_task
       @task = current_user.tasks.find_by_token(params[:id])

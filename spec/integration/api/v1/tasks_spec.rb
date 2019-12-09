@@ -108,4 +108,18 @@ describe 'Tasks API' do
       end
     end
   end
+
+  path '/tasks/{id}/mark_as_done' do
+    put 'mark as done' do
+      security [APIKeyHeader: []]
+      tags 'Tasks'
+      consumes 'application/json'
+      parameter name: :id, in: :path, type: :string
+
+      response '200', 'Task done!' do
+        let(:id) { create(:task, user: user).token }
+        run_test!
+      end
+    end
+  end
 end
