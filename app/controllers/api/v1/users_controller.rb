@@ -59,8 +59,7 @@ module API::V1
     end
 
     def user_params
-      params.fetch(:user, {})
-            .permit(:firstname, :lastname, :email, :password, :password_confirmation)
+      params.permit(:firstname, :lastname, :email, :password, :password_confirmation)
     end
 
     def current_user_info
