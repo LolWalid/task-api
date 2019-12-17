@@ -42,7 +42,8 @@ module API::V1
     private
 
     def per_page
-      [params[:per_page] || 20, 100].min
+      params_per_page = params[:per_page].presence || 20
+      [params_per_page.to_i, 100].min
     end
 
     def set_task
