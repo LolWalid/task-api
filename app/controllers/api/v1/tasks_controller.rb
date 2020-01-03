@@ -5,7 +5,7 @@ module API::V1
 
     def index
       # TODO: check params!
-      tasks = current_user.tasks.in_progress.page(params[:page] || 1).per_page(per_page).order(params[:order])
+      tasks = current_user.tasks.in_progress.page(params[:page] || 1).per_page(per_page).order(params[:order] || :created_at)
       render json: tasks.map(&:to_jbuilder)
     end
 
