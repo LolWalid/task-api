@@ -7,6 +7,8 @@ class Task < ApplicationRecord
 
   validates :title, presence: true, length: { maximum: 100 }
 
+  before_create :set_due_date
+
   def to_jbuilder
     {
       id: token,
@@ -24,5 +26,11 @@ class Task < ApplicationRecord
       width: image&.width,
       height: image&.height
     }
+  end
+
+  private
+
+  def set_due_date
+    self.due_date ||= 5.minutes.from_now
   end
 end
