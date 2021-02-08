@@ -17,7 +17,7 @@ gem 'puma', '~> 3.11'
 gem 'bcrypt', '~> 3.1.7' # Use Active Model has_secure_password
 gem 'jwt' # Use Json Web Token (JWT) for token based authentication
 
-gem 'carrierwave', '~> 2.0'
+gem 'carrierwave', '~> 2.1'
 gem 'mini_magick'
 
 gem 'will_paginate'
